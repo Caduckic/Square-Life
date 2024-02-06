@@ -75,17 +75,23 @@ public:
 
 sf::Vector2f getRandomDir();
 
-int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
-    HWND myConsole = GetConsoleWindow();
-    ShowWindow(myConsole,0);
+#ifdef WINAPI
+    int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
+        HWND myConsole = GetConsoleWindow();
+        ShowWindow(myConsole,0);
+#else
+    int main() {
+#endif
     // seed random
     srand(time(NULL));
 
     sf::RenderWindow window (sf::VideoMode(200,200), "Square Life", sf::Style::None);
     window.setFramerateLimit(60);
 
+#ifdef WINAPI
     HWND hwnd = window.getSystemHandle();
     SetWindowPos(hwnd, HWND_TOPMOST, 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+#endif
 
     sf::Event ev;
     sf::Clock deltaClock;
