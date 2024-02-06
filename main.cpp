@@ -4,7 +4,9 @@
 #include <cmath>
 #include <sstream>
 
-#include <windows.h>
+#ifdef WINAPI
+    #include <windows.h>
+#endif
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>

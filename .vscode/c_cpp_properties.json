@@ -21,6 +21,23 @@
                 "-lsfml-window",
                 "-lsfml-system"
             ]
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/include/"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system"
+            ]
         }
     ],
     "version": 4
