@@ -4,29 +4,31 @@
 #include <cmath>
 #include <sstream>
 
+#include <windows.h>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
-class Rectangle {
+class RectangleShape {
 private:
     sf::RectangleShape shape {};
     sf::Vector2f dir;
-    float speed {100.f};
+    float speed {50.f};
     float trueAlpha {255};
 public:
 
-    Rectangle(sf::Vector2f dir, sf::RenderTarget& target) : dir{dir} {
+    RectangleShape(sf::Vector2f dir, sf::RenderTarget& target) : dir{dir} {
         shape.setFillColor(sf::Color(rand()%255+1, rand()%255+1, rand()%255+1));
-        shape.setSize(sf::Vector2f(20.f,20.f));
+        shape.setSize(sf::Vector2f(10.f,10.f));
         shape.setPosition(sf::Vector2f((target.getSize().x/2) - 50.f, (target.getSize().y/2) - 50.f));
     }
-    Rectangle(sf::Vector2f dir, sf::RenderTarget& target, sf::Vector2f pos) : dir{dir} {
+    RectangleShape(sf::Vector2f dir, sf::RenderTarget& target, sf::Vector2f pos) : dir{dir} {
         shape.setFillColor(sf::Color(rand()%255+1, rand()%255+1, rand()%255+1));
-        shape.setSize(sf::Vector2f(20.f,20.f));
+        shape.setSize(sf::Vector2f(10.f,10.f));
         shape.setPosition(pos);
     }
 
-    virtual ~Rectangle() = default;
+    virtual ~RectangleShape() = default;
 
     void move(float deltaTime) {
         shape.move(dir * speed * deltaTime);
@@ -68,14 +70,21 @@ public:
     }
 };
 
+
 sf::Vector2f getRandomDir();
 
-int main() {
+int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
+    HWND myConsole = GetConsoleWindow();
+    ShowWindow(myConsole,0);
     // seed random
     srand(time(NULL));
 
-    sf::RenderWindow window (sf::VideoMode(800,600), "Square Life", sf::Style::Close | sf::Style::Titlebar);
+    sf::RenderWindow window (sf::VideoMode(300,180), "Square Life", sf::Style::Close | sf::Style::Titlebar);
     window.setFramerateLimit(60);
+
+    HWND hwnd = window.getSystemHandle();
+    SetWindowPos(hwnd, HWND_TOPMOST, 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+
     sf::Event ev;
     sf::Clock deltaClock;
     sf::Time dt;
@@ -90,7 +99,7 @@ int main() {
     text.setString("NONE");
     text.setCharacterSize(24);
 
-    std::vector<Rectangle> rects;
+    std::vector<RectangleShape> rects;
 
     rects.push_back({getRandomDir(), window});
 
@@ -116,7 +125,7 @@ int main() {
             }
         }
         // update
-        std::vector<Rectangle> rectsToAdd {};
+        std::vector<RectangleShape> rectsToAdd {};
         for (size_t i {0}; i < rects.size(); i++) {
             rects.at(i).move(deltaTime);
             sf::Vector2f shapePos = rects.at(i).getPosition();
