@@ -79,7 +79,7 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
     // seed random
     srand(time(NULL));
 
-    sf::RenderWindow window (sf::VideoMode(300,180), "Square Life", sf::Style::Close | sf::Style::Titlebar);
+    sf::RenderWindow window (sf::VideoMode(200,200), "Square Life", sf::Style::None);
     window.setFramerateLimit(60);
 
     HWND hwnd = window.getSystemHandle();
@@ -101,10 +101,16 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
 
     std::vector<RectangleShape> rects;
 
-    rects.push_back({getRandomDir(), window});
+    sf::Vector2f randomPos {static_cast<float>(rand()% 200), static_cast<float>(rand()% 200)};
+
+    rects.push_back({getRandomDir(), window, randomPos});
 
     //sf::Vector2f dir = getRandomDir();
     // float speed {30.f};
+
+    float lastDownX {};
+    float lastDownY {};
+    bool isMouseDragging {false};
 
     while (window.isOpen()) {
         dt = deltaClock.restart();
@@ -122,7 +128,22 @@ int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszA
             case sf::Event::Closed:
                 window.close();
                 break;
+            case sf::Event::MouseMoved:
+                if (isMouseDragging) {
+                window.setPosition(window.getPosition() + sf::Vector2<int>(ev.mouseMove.x- lastDownX, ev.mouseMove.y- lastDownY));
+                }
+                break;
+            case sf::Event::MouseButtonPressed:
+                lastDownX = ev.mouseButton.x;
+                lastDownY = ev.mouseButton.y;
+                isMouseDragging = true;
+                break;
+            case sf::Event::MouseButtonReleased:
+                isMouseDragging = false;
+                break;
             }
+            
+
         }
         // update
         std::vector<RectangleShape> rectsToAdd {};
