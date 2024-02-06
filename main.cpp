@@ -4,7 +4,7 @@
 #include <cmath>
 #include <sstream>
 
-#ifdef WINAPI
+#ifdef WIN32
     #include <windows.h>
 #endif
 
@@ -75,7 +75,7 @@ public:
 
 sf::Vector2f getRandomDir();
 
-#ifdef WINAPI
+#ifdef WIN32
     int WINAPI WinMain(HINSTANCE hThisInstance, HINSTANCE hPrevInstance, LPSTR lpszArgument, int nCmdShow) {
         HWND myConsole = GetConsoleWindow();
         ShowWindow(myConsole,0);
@@ -88,7 +88,7 @@ sf::Vector2f getRandomDir();
     sf::RenderWindow window (sf::VideoMode(200,200), "Square Life", sf::Style::None);
     window.setFramerateLimit(60);
 
-#ifdef WINAPI
+#ifdef WIN32
     HWND hwnd = window.getSystemHandle();
     SetWindowPos(hwnd, HWND_TOPMOST, 0,0,0,0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
 #endif
