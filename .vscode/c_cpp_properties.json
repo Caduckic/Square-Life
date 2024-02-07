@@ -1,6 +1,46 @@
 {
     "configurations": [
         {
+            "name": "Linux",
+            "includePath": [
+                "/home/caduckic/Documents/sfml/Square Life/Square-Life/**",
+                "/usr/include/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                "-lsfml-graphics",
+                "-lsfml-window",
+                "-lsfml-system",
+                "-I/usr/local/lib/wx/include/gtk3-unicode-3.2",
+                "-I/usr/local/include/wx-3.2",
+                "-D_FILE_OFFSET_BITS=64",
+                "-DWXUSINGDLL",
+                "-D__WXGTK__",
+                "-L/usr/local/lib",
+                "-pthread",
+                "-lwx_gtk3u_xrc-3.2",
+                "-lwx_gtk3u_html-3.2",
+                "-lwx_gtk3u_qa-3.2",
+                "-lwx_gtk3u_core-3.2",
+                "-lwx_baseu_xml-3.2",
+                "-lwx_baseu_net-3.2",
+                "-lwx_baseu-3.2"
+            ],
+            "mergeConfigurations": false,
+            "browse": {
+                "path": [
+                    "/home/caduckic/Documents/sfml/Square Life/Square-Life/**",
+                    "/usr/include/**",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
@@ -16,23 +56,6 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "${default}",
-            "compilerArgs": [
-                "-lsfml-graphics",
-                "-lsfml-window",
-                "-lsfml-system"
-            ]
-        },
-        {
-            "name": "Linux",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/"
-            ],
-            "defines": [],
-            "compilerPath": "/usr/bin/clang",
-            "cStandard": "c17",
-            "cppStandard": "c++14",
-            "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
                 "-lsfml-graphics",
                 "-lsfml-window",

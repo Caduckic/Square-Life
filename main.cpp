@@ -8,6 +8,8 @@
     #include <windows.h>
 #endif
 
+#include <wx-3.2/wx/wx.h>
+
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
 
@@ -86,7 +88,8 @@ sf::Vector2f getRandomDir();
     srand(time(NULL));
 
     sf::RenderWindow window (sf::VideoMode(200,200), "Square Life", sf::Style::None);
-    window.setFramerateLimit(60);
+    // window.get
+    window.setFramerateLimit(240); // increased frame rate due to jitteriness on linux, idk weird sfml issue still has jitter but less
 
 #ifdef WIN32
     HWND hwnd = window.getSystemHandle();
@@ -123,7 +126,6 @@ sf::Vector2f getRandomDir();
     while (window.isOpen()) {
         dt = deltaClock.restart();
         float deltaTime = dt.asSeconds();
-        // std::cout << deltaTime << std::endl;
         if (deltaTime > 0.2f) deltaTime = 0.2f;
         // poll events
         while (window.pollEvent(ev)) {
