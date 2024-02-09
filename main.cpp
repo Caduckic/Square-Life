@@ -6,9 +6,9 @@
 
 #ifdef WIN32
     #include <windows.h>
+#else
+    #include <wx-3.2/wx/wx.h>
 #endif
-
-#include <wx-3.2/wx/wx.h>
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
@@ -104,6 +104,11 @@ sf::Vector2f getRandomDir();
 
     if (!font.loadFromFile("./BebasNeue-Regular.ttf"))
         std::cerr << "Failed to load font" << std::endl;
+
+    sf::Image icon {};
+    if (!icon.loadFromFile("./square-life-icon.png"))
+        std::cerr << "Failed to load icon" << std::endl;
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     sf::Text text;
     text.setFont(font);
